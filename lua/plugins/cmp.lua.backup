@@ -1,0 +1,30 @@
+return {
+        'hrsh7th/nvim-cmp', -- Плагин для автодополнения
+        dependencies = {
+            'hrsh7th/cmp-nvim-lsp', -- Источник автодополнения для LSP
+            'hrsh7th/cmp-buffer',   -- Источник автодополнения для буфера
+            'hrsh7th/cmp-path',     -- Источник автодополнения для путей
+            'hrsh7th/cmp-cmdline',  -- Источник автодополнения для командной строки
+        },
+        config = function()
+            local cmp = require('cmp')
+            cmp.setup({
+                snippet = {
+                    expand = function(args)
+                        vim.fn["vsnip#anonymous"](args.body) -- Требуется для vsnip
+                    end,
+                },
+                sources = {
+                    { name = 'nvim_lsp' },
+                    { name = 'buffer' },
+                    { name = 'path' },
+                },
+                mapping = {
+                    ['<A-k>'] = cmp.mapping.select_prev_item(),
+                    ['<A-j>'] = cmp.mapping.select_next_item(),
+                    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+                    ['<C-Space>'] = cmp.mapping.complete(),
+                },
+            })
+        end
+}

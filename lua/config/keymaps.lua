@@ -2,7 +2,8 @@ vim.g.mapleader = " "
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
-map('', '<A-q>', ':nohlsearch <Esc>', opts)
+
+map('', '<A-q>', '<Esc>', opts)
 -- Переместиться к первому символу строки (Shift + H)
 map('n', '<S-h>', '^', opts)
 
@@ -10,10 +11,16 @@ map('n', '<S-h>', '^', opts)
 map('n', '<S-l>', 'g_', opts)-- Настройка горячих клавиш в визуальном режиме
 
 -- Функция для сдвига строк вправо
-map('x', '<Tab>', ':\'<,\'>normal! >><CR> V\'<,\'>', opts)
+map('v', '<C-A-l>', ':\'<,\'>normal! >><CR> V\'<,\'>', opts)
 
 -- Функция для сдвига строк влево
-map('x', '<S-Tab>', ':\'<,\'>normal! <<<CR> V\'<,\'>', opts)
+map('v', '<C-A-h>', ':\'<,\'>normal! <<<CR> V\'<,\'>', opts)
+
+-- Функция для сдвига строк вверх
+map('v', '<C-A-k>', ':\'<,\'>move -2<CR>gv', opts)
+
+-- Функция для сдвига строк вниз
+map('v', '<C-A-j>', ":move '>+1<CR>gv=gv", opts)
 
 -- Примеры привязок клавиш
 map('n', '<C-s>', ':w<CR>', opts) -- Сохранение файла по Ctrl+s
@@ -21,6 +28,13 @@ map('n', '<C-q>', ':q<CR>', opts) -- Выход из файла по Ctrl+q
 
 -- Открытие/фокусировка neo-tree
 map('n', '<A-e>', ':Neotree toggle<CR>', opts)  -- Открыть или закрыть neo-tree
+
+
+-- Сдвинуть строку влево
+map('n', '<C-A-h>', '<<', opts)
+
+-- Сдвинуть строку вправо
+map('n', '<C-A-l>', '>>', opts)
 
 -- Перемещение строки вниз
 map('n', '<C-A-j>', ':m .+1<CR>==', opts)
@@ -42,7 +56,7 @@ map('n', '<A-c>', ':bdelete<CR>', opts)
 
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<A-b>', builtin.find_files, opts)
-vim.keymap.set('n', '<A-f>', builtin.current_buffer_fuzzy_find, {})
+vim.keymap.set('n', '<A-f>', builtin.current_buffer_fuzzy_find, opts)
 
 -- Установите видимость 5 строк при перемещении вверх или вниз
 vim.o.scrolloff = 5

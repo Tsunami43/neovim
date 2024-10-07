@@ -1,15 +1,10 @@
 -- Общие настройки Neovim
 
--- Для скорости загрузки
---vim.g.loaded_netrw = 1
---vim.g.loaded_netrwPlugin = 1
-
 vim.o.clipboard = 'unnamedplus'
 vim.o.textwidth = 80
-
+vim.opt.termguicolors = true
 vim.o.wrap = true                     -- Включаем визуальный перенос строк
 vim.o.number = true                   -- Включить нумерацию строк
-vim.o.relativenumber = true           -- Относительная нумерация строк vim.o.tabstop = 4                     
 vim.o.shiftwidth = 4                  -- Размер отступа при использовании табуляции
 vim.o.expandtab = true                -- Преобразование табуляции в пробелы
 vim.o.smartindent = true              -- Умная автоиндентация
